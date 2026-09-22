@@ -271,6 +271,10 @@ order quote.
 
 ## Board renders
 
+![schematic](/img/schematic-full.png)
+
+### - If its hard to zoom please check out /img folder to see each part of the schematic much more clearly, I tried using .pdf to .img but unfortunately u can't see the text on zooming in... hence I have taken SS of each component.
+
 ![JLCPCB](img/jlcpcb.png)
 
 ![Front](img/jlcpcb-f.png)
