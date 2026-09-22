@@ -1,0 +1,89 @@
+(version 1)
+
+# ---------------------------------------------------------------------------
+# Vayu F7 - board-specific design rules
+#
+# Fab and assembly: JLCPCB, 4-layer FR-4, 1 oz outer, Economic PCBA, both sides.
+# Their published limits for this stack-up:
+#   track / space   0.09 mm (3.5 mil)      copper to routed edge   0.2 mm
+#   drill           0.15 - 6.3 mm          hole position tol.      +/- 0.05 mm
+#   soldermask dam  0.10 mm                silkscreen line         0.15 mm
+#   PCBA minimum board 10 x 10 mm, 0402 and 0.4 mm lead pitch
+# This board is designed to 0.15 mm track / 0.10 mm space, and to vias of
+# 0.45-0.70 mm diameter over a 0.20-0.35 mm drill, every one of them carrying at
+# least a 0.125 mm annular ring (R3; JLCPCB's stated minimum is 0.13 mm and they
+# charge nothing for a 0.20 or 0.25 mm hole while the via is 0.45 mm or wider).
+# That sits inside the fab's limits with margin rather than against them: a
+# design that needs the fab's best number everywhere is a design that yields badly.
+#
+# Board Setup carries the global constraints.  What is written here is either an
+# exception with a reason, or a constraint the project file cannot express.
+# ---------------------------------------------------------------------------
+
+# GCT's, and now HRO's, USB-C land pattern puts non-plated alignment posts close
+# to the connector's own outer pads.  That is the connector manufacturer's
+# drawing, not a choice this design gets to make - the posts must line up with
+# the pegs moulded into the shell.  The holes are non-plated and the copper
+# around them belongs to the same connector, so the only risk is drill wander
+# into a pad, and JLCPCB holds hole position to +/-0.05 mm.
+(rule "USB-C shell alignment posts"
+	(constraint hole_clearance (min 0.15mm))
+	(condition "A.memberOfFootprint('J8') && B.memberOfFootprint('J8')"))
+
+# Battery copper carries the ESC current, and the pack path is wider than the
+# electrical minimum on purpose: these are the traces a crash-damaged board is
+# most likely to lift, and copper is free.
+#
+# The number in this rule is 0.25 mm, far below what the pack path is drawn to,
+# and that is deliberate.  VBAT is one net with eighteen pads and two jobs.  A
+# few millimetres of it carry the whole pack current from the battery pads to
+# each converter's VIN pin; the rest feeds two 294 kohm enable dividers, a
+# 10 kohm sense divider and the stubs into the bulk capacitors - a quarter of a
+# milliamp through the first three and ripple current through the last.  DRC
+# sees one net and cannot tell a trunk from a branch, so a rule written for the
+# trunk either fails on sixty millimetres of branch or is not written at all.
+# 0.25 mm is what this rule is for: catching a gross mistake anywhere on the
+# net, well clear of the 0.09 mm the fab can build.
+#
+# The trunk is checked by a widest-path analysis from the battery entry to each
+# VIN pin, which reports the narrowest link on the best path.  That is a question
+# about a path; a script can answer it and DRC cannot.  As drawn at R3: 0.50 mm
+# at the narrowest to U1, U2 and D1, 0.70-0.80 mm over most of the run.  0.50 mm
+# of 1 oz outer copper carries 1.94 A at a 20 C rise, and VBAT now enters on J1
+# pin 1 alone - one JST-SH contact rated 1 A - so the connector, not the copper,
+# is what limits this board's input.
+(rule "battery trace width"
+	(constraint track_width (min 0.25mm))
+	(condition "A.NetClass == 'Battery'"))
+
+# The switching node of each buck is deliberately short and wide.  Stated as a
+# rule so that a later edit that necks it down gets caught by DRC rather than by
+# a customer with lines through their video.  Both nodes are 0.45 mm end to end
+# as drawn, 6.9 mm long on the 9 V rail and 14.2 mm on the 5 V.
+(rule "switch node width"
+	(constraint track_width (min 0.45mm))
+	(condition "A.NetName == 'SW5V' || A.NetName == 'SW10V' || A.NetName == 'SW3V3'"))
+
+# USB 2.0 full-speed differential pair: 90 ohm nominal on this 4-layer stack-up
+# with 0.25 mm traces over the In1 ground plane.
+(rule "USB differential pair"
+	(constraint track_width (min 0.2mm) (opt 0.25mm))
+	(condition "A.NetClass == 'USB'"))
+
+# The three constraints below live here rather than in Board Setup because the
+# board editor rewrites the project file from its own in-memory copy on every
+# save, and these kept reverting to KiCad's defaults.  Stated as rules they
+# survive, and they are the JLCPCB numbers.
+(rule "copper to board edge"
+	(constraint edge_clearance (min 0.2mm)))
+# Scoped to the silkscreen, which is what they were always about.  Without the
+# condition they also govern the fabrication layers, where the reference
+# designators live - text nobody prints, on a layer that exists for the
+# assembler's machine - and that produced 248 warnings about ink that will
+# never be laid down.
+(rule "silkscreen text height"
+	(constraint text_height (min 0.8mm))
+	(condition "A.Layer == 'F.Silkscreen' || A.Layer == 'B.Silkscreen' || A.Layer == 'F.SilkS' || A.Layer == 'B.SilkS'"))
+(rule "silkscreen line width"
+	(constraint text_thickness (min 0.13mm))
+	(condition "A.Layer == 'F.Silkscreen' || A.Layer == 'B.Silkscreen' || A.Layer == 'F.SilkS' || A.Layer == 'B.SilkS'"))

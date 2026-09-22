@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "VayuFC")(type "KiCad")(uri "${KIPRJMOD}/lib/VayuFC.kicad_sym")(options "")(descr "Vayu F7 project symbols"))
+)

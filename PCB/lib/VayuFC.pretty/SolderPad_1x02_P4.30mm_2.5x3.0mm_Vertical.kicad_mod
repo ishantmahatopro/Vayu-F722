@@ -1,0 +1,105 @@
+(footprint "SolderPad_1x02_P4.30mm_2.5x3.0mm_Vertical"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(uuid "bafbb942-728f-4d0a-9e3f-9a9c4716314c")
+	(descr "2-way battery solder pad, 4.30 mm pitch, 2.5x3.0 mm pads, stacked along Y. Pin 1 = BAT+, pin 2 = GND.")
+	(tags "solder pad battery FPV")
+	(property "Reference" "REF**"
+		(at 0 -4.4 0)
+		(layer "F.Fab")
+		(uuid "1f6caece-779a-480b-8ea3-2c04e382b237")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "BATT pads"
+		(at 2.6 0 90)
+		(layer "F.Fab")
+		(uuid "19e4387d-d3cc-4004-89ee-8c357c423fc4")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d3432ac1-9b28-4581-8241-e7da081904dd")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.075)
+			)
+		)
+	)
+	(property "Description" "2-way battery solder pad, 4.30 mm pitch, 2.5x3.0 mm pads, stacked along Y. Pin 1 = BAT+, pin 2 = GND."
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "07489a12-851d-48cf-9085-b4b1ff04ea98")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.075)
+			)
+		)
+	)
+	(attr smd exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -1.35 -3.75)
+		(end 1.35 3.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "8aab35a9-edda-43f8-90a1-465946b04fb5")
+	)
+	(fp_text user "BAT+"
+		(at 2.7 -4.05 0)
+		(layer "F.SilkS")
+		(uuid "8ff0f0ca-67dd-4c7e-b024-fd06769c6d41")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_text user "BAT-"
+		(at 2.7 2.45 0)
+		(layer "F.SilkS")
+		(uuid "a7160abc-de9f-4164-9b67-9427d3c0d1fb")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at 0 -2.15)
+		(size 2.5 3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "79f9d1d9-7cbc-46bf-ab4c-fb18ec41024b")
+	)
+	(pad "2" smd rect
+		(at 0 2.15)
+		(size 2.5 3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "1c1f21e6-dd3e-4009-afc1-f14a11a003a1")
+	)
+	(embedded_fonts no)
+)

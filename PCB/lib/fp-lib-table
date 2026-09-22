@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "VayuFC")(type "KiCad")(uri "C:/Users/shlok/Downloads/Flight Controller/hardware/lib/VayuFC.pretty")(options "")(descr ""))
+)
