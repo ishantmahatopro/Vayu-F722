@@ -794,3 +794,23 @@ component views make the placement and connector orientation easy to inspect.
 ![back, components fitted](img/back-C.png)
 
 **Total time spent: 3.4 hours**
+
+# September 22: Final Submission, Cart, Total
+
+So depending on the grant I have two options:
+## 1. Buy from JLCPCB.com 
+
+So basically its about 330USD + 11USD shipping that's about 345USD... and then remaining amount I might need for customs depending on shipping to IND or AUS...
+
+![](/img/cart.png)
+![](/img/cart2.png)
+![](/img/shipping.png)
+
+## 2. Local Source
+
+If HackClub or Forge or HCB does decline using PCBA from JLCPCB, then I might need to buy some hardware for soldering BGA, 0401, LQ64 packages. And if so, I would be using Robu.in, Amazon.in, Zboitic.com, For PCB, components, Hardware stuff like Hot Plate, Tweezers, Solder Paste, Solder Flux.
+
+Happy Clubbing !!!
+Thanks, I hope you like my Project ^.^ 
+
+**Total time spent: 0.1 hours**
